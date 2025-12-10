@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <div class="header">
+            <h3>🛡️ URL Guard</h3>
+            <div class="status" id="status">Loading...</div>
+        </div>
+        
+        <div class="current-url">
+            <label>Current URL:</label>
+            <div class="url-display" id="currentUrl">Checking...</div>
+            <div class="safety-status" id="safetyStatus"></div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number" id="blockedCount">0</span>
+                <span class="stat-label">URLs Blocked</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="modelStatus">-</span>
+                <span class="stat-label">Model Status</span>
+            </div>
+        </div>
+        
+        <div class="actions">
+            <button id="checkPage" class="btn primary">Check This Page</button>
+            <button id="viewLogs" class="btn secondary">View Block Log</button>
+        </div>
+        
+        <div class="footer">
+            <small>Powered by Machine Learning</small>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+{
+  "feature_names": [
+    "ip_exist",
+    "abnormal_url",
+    "dot_count",
+    "www_count",
+    "@_count",
+    "hyphen_count",
+    "subdomain_count",
+    "shortening_service",
+    "https_count",
+    "http_count",
+    "percent_count",
+    "query_count",
+    "equal_count",
+    "url_length",
+    "hostname_length",
+    "no_embed",
+    "suspicious_words",
+    "digit_count",
+    "letters_count",
+    "fd_length",
+    "tld_length"
+  ],
+  "class_names": [
+    "benign",
+    "defacement",
+    "malware",
+    "phishing"
+  ],
+  "n_classes": 4,
+  "n_features": 21,
+  "feature_importances": [
+    51,
+    56,
+    966,
+    529,
+    70,
+    592,
+    1262,
+    132,
+    258,
+    117,
+    229,
+    208,
+    399,
+    1030,
+    1436,
+    40,
+    252,
+    1174,
+    797,
+    1818,
+    584
+  ],
+  "boosting_type": "gbdt",
+  "objective": "multiclass",
+  "n_estimators": 100,
+  "learning_rate": 0.1,
+  "max_depth": -1,
+  "feature_importances_normalized": [
+    0.00425,
+    0.004666666666666667,
+    0.0805,
+    0.044083333333333335,
+    0.005833333333333334,
+    0.04933333333333333,
+    0.10516666666666667,
+    0.011,
+    0.0215,
+    0.00975,
+    0.019083333333333334,
+    0.017333333333333333,
+    0.03325,
+    0.08583333333333333,
+    0.11966666666666667,
+    0.0033333333333333335,
+    0.021,
+    0.09783333333333333,
+    0.06641666666666667,
+    0.1515,
+    0.048666666666666664
+  ],
+  "simple_rules": [
+    {
+      "class": 0,
+      "rules": [
+        {
+          "important_features": [
+            0,
+            1,
+            4,
+            7
+          ],
+          "description": "Benign indicators"
+        }
+      ]
+    },
+    {
+      "class": 1,
+      "rules": [
+        {
+          "important_features": [
+            2,
+            6,
+            13
+          ],
+          "description": "Defacement indicators"
+        }
+      ]
+    },
+    {
+      "class": 2,
+      "rules": [
+        {
+          "important_features": [
+            0,
+            1,
+            13,
+            17
+          ],
+          "description": "Malware indicators"
+        }
+      ]
+    },
+    {
+      "class": 3,
+      "rules": [
+        {
+          "important_features": [
+            16,
+            7,
+            4,
+            10
+          ],
+          "description": "Phishing indicators"
+        }
+      ]
+    }
+  ]
+}

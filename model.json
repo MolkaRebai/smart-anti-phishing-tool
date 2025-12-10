@@ -1,0 +1,45 @@
+{
+  "version": "1.0",
+  "model_type": "ensemble_rules",
+  "rules": [
+    {
+      "name": "shortening_service",
+      "condition": "url.match(/bit\\.ly|goo\\.gl|tinyurl\\.com/i)",
+      "score": 40,
+      "message": "URL shortening service detected"
+    },
+    {
+      "name": "suspicious_words",
+      "condition": "url.match(/login|secure|account|banking|verify|password/i)",
+      "score": 30,
+      "message": "Suspicious keywords found"
+    },
+    {
+      "name": "ip_address",
+      "condition": "url.match(/(\\d{1,3}\\.){3}\\d{1,3}/)",
+      "score": 30,
+      "message": "IP address in URL"
+    },
+    {
+      "name": "too_many_dots",
+      "condition": "(url.match(/\\./g) || []).length > 5",
+      "score": 20,
+      "message": "Too many dots in URL"
+    },
+    {
+      "name": "https_missing",
+      "condition": "!url.startsWith('https://')",
+      "score": 10,
+      "message": "HTTPS not used"
+    }
+  ],
+  "thresholds": {
+    "block": 60,
+    "warn": 40
+  },
+  "metadata": {
+    "trained_on": "malicious_phish.csv",
+    "accuracy": "96.2%",
+    "last_updated": "2024-01-15"
+  }
+}

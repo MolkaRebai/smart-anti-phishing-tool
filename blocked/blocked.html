@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚫 Security Warning - Malicious Website Blocked</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .warning-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .warning-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 40px 30px;
+        }
+
+        .warning-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .warning-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .warning-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .warning-content {
+            padding: 40px 30px;
+            color: #333;
+        }
+
+        .alert-message {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        .url-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            border: 1px solid #e9ecef;
+        }
+
+        .threat-info {
+            background: #ffe6e6;
+            border: 1px solid #ffcccc;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .threat-info h3 {
+            color: #d63031;
+            margin-bottom: 10px;
+        }
+
+        .threat-info ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .threat-info li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ffcccc;
+        }
+
+        .threat-info li:last-child {
+            border-bottom: none;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-back {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-back:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-proceed {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-proceed:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .security-tips {
+            background: #e8f5e8;
+            border: 1px solid #c8e6c9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .security-tips h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .warning-title {
+                font-size: 24px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="warning-container">
+        <div class="warning-header">
+            <div class="warning-icon">🚫</div>
+            <h1 class="warning-title">Security Warning</h1>
+            <p class="warning-subtitle">Malicious Website Blocked</p>
+        </div>
+        
+        <div class="warning-content">
+            <div class="alert-message">
+                <strong>⚠️ Your security is our priority!</strong><br>
+                Our system has detected that this website may pose a security threat.
+            </div>
+
+            <div class="url-display" id="blockedUrl">
+                <!-- URL will be inserted by JavaScript -->
+            </div>
+
+            <div class="threat-info">
+                <h3>🔍 Threat Detected: Phishing Website</h3>
+                <ul>
+                    <li>❌ This site may try to steal your personal information</li>
+                    <li>🎣 It could be pretending to be a legitimate website</li>
+                    <li>📧 May ask for passwords, credit card details, or other sensitive data</li>
+                    <li>⚠️ Links from this site could lead to malware downloads</li>
+                </ul>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-back" onclick="goBack()">⬅️ Go Back to Safety</button>
+                <button class="btn btn-proceed" onclick="proceedAnyway()">🚨 Proceed Anyway (Not Recommended)</button>
+            </div>
+
+            <div class="security-tips">
+                <h3>💡 Security Tips:</h3>
+                <ul>
+                    <li>Always check the website URL before entering personal information</li>
+                    <li>Look for HTTPS and a padlock icon in the address bar</li>
+                    <li>Never enter passwords on suspicious-looking sites</li>
+                    <li>Keep your browser and security software updated</li>
+                    <li>Use two-factor authentication when available</li>
+                </ul>
+            </div>
+
+            <div class="footer">
+                <p>Protected by AI-Powered Malicious URL Detection System</p>
+                <p>If you believe this is a mistake, please contact your administrator.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the blocked URL from query parameters
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Display the blocked URL
+        const blockedUrl = getQueryParam('url') || 'Unknown URL';
+        document.getElementById('blockedUrl').textContent = blockedUrl;
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function proceedAnyway() {
+            if(confirm('⚠️ WARNING: Proceeding to this website may put your personal information at risk. Are you sure you want to continue?')) {
+                window.location.href = blockedUrl;
+            }
+        }
+
+        // Log the block event (you can send this to your analytics)
+        console.log('URL blocked:', blockedUrl, 'Reason: Phishing');
+    </script>
+</body>
+</html>
