@@ -1,10 +1,5 @@
 # Smart Anti-Phishing Tool 🛡️
 
-![License](https://img.shields.io/github/license/MolkaRebai/smart-anti-phishing-tool)
-![Issues](https://img.shields.io/github/issues/MolkaRebai/smart-anti-phishing-tool)
-![Stars](https://img.shields.io/github/stars/MolkaRebai/smart-anti-phishing-tool)
-![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
-
 An intelligent, real-time security solution designed to detect and block phishing attempts using advanced URL analysis and machine learning heuristics.
 
 ## 🚀 Overview
@@ -23,10 +18,3 @@ The **Smart Anti-Phishing Tool** helps users identify malicious URLs and suspici
 - **Libraries:** Pandas, Scikit-Learn, BeautifulSoup4, Requests
 - **Backend/API (Optional):** Flask / FastAPI
 - **Data Source:** Trained on datasets from PhishTank and OpenPhish.
-
-## ⚙️ Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/MolkaRebai/smart-anti-phishing-tool.git](https://github.com/MolkaRebai/smart-anti-phishing-tool.git)
-   cd smart-anti-phishing-tool
