@@ -1,20 +1,132 @@
-# Smart Anti-Phishing Tool 🛡️
+# Smart Anti-Phishing Tool
 
-An intelligent, real-time security solution designed to detect and block phishing attempts using advanced URL analysis and machine learning heuristics.
+A Chrome extension (Manifest V3) that classifies URLs in real time 
+as **benign, phishing, malware, or defacement** using a LightGBM 
+model running entirely client-side — no external API, no latency, 
+no data leaving the browser.
 
-## 🚀 Overview
+---
 
-The **Smart Anti-Phishing Tool** helps users identify malicious URLs and suspicious web content before they fall victim to social engineering attacks. By analyzing various features—including URL length, domain age, SSL presence, and content patterns—the tool provides a safety score for any given link.
+## How it works
+```
+Chrome MV3 service worker intercepts navigation
+        │
+        ▼
+21 NLP features extracted from URL (JavaScript)
+        │
+        ▼
+LightGBM classifier runs locally (model_info.json)
+        │
+        ▼
+4-class prediction + confidence score
+        │
+        ├── Malicious (>85% confidence) → block page redirect
+        ├── Suspicious → inline warning on all page links
+        └── Benign → no action
+```
 
-### Key Features
-- **🔍 Real-time URL Scanning:** Instantly check URLs for known phishing patterns.
-- **🧠 ML-Powered Detection:** Uses a trained model to identify "zero-day" phishing sites that aren't on blacklists yet.
-- **📊 Feature Extraction:** Analyzes 30+ parameters including obfuscation, redirection, and domain impersonation.
-- **🛡️ Risk Assessment:** Provides a clear "Safe," "Suspicious," or "Malicious" verdict.
+---
 
-## 🛠️ Tech Stack
+## Model Performance
 
-- **Language:** Python 3.x
-- **Libraries:** Pandas, Scikit-Learn, BeautifulSoup4, Requests
-- **Backend/API (Optional):** Flask / FastAPI
-- **Data Source:** Trained on datasets from PhishTank and OpenPhish.
+Trained on **651,191 labeled URLs** across 4 classes.  
+Evaluated on 130,239 test samples.
+
+| Class | Precision | Recall | F1-Score |
+|------------|-----------|--------|----------|
+| Benign | 0.96 | 0.99 | 0.97 |
+| Defacement | 0.93 | 0.98 | 0.96 |
+| Malware | 0.96 | 0.84 | 0.89 |
+| Phishing | 0.90 | 0.79 | 0.84 |
+| **Overall** | **0.95** | **0.95** | **0.95** |
+
+> Full training pipeline and evaluation in `model/training.ipynb`
+
+---
+
+## Features extracted per URL (21 total)
+
+| Feature | Description |
+|---------|-------------|
+| `ip_exist` | IP address used instead of domain name |
+| `abnormal_url` | Hostname not found within the URL |
+| `dot_count` | Number of dots (subdomain depth indicator) |
+| `www_count` | Number of www occurrences |
+| `@_count` | @ symbol presence (hides real destination) |
+| `hyphen_count` | Hyphens in domain (impersonation indicator) |
+| `subdomain_count` | Number of subdomains |
+| `shortening_service` | Known URL shortener detected |
+| `https_count` | HTTPS occurrence count |
+| `http_count` | HTTP occurrence count |
+| `percent_count` | % encoding (obfuscation indicator) |
+| `query_count` | Number of query parameters |
+| `equal_count` | Number of = signs in URL |
+| `url_length` | Total URL length |
+| `hostname_length` | Length of hostname |
+| `no_embed` | Double slash in path (embed indicator) |
+| `suspicious_words` | Phishing keywords (login, verify, secure...) |
+| `digit_count` | Number of digits in URL |
+| `letters_count` | Number of letters in URL |
+| `fd_length` | Length of first directory in path |
+| `tld_length` | Length of top-level domain |
+
+## Project Structure
+```
+smart-anti-phishing-tool/
+├── blocked/
+│   └── blocked.html
+├── icons/
+│   ├── icon16.png
+│   ├── icon48.png
+│   └── icon128.png
+├── model/
+│   ├── training.ipynb
+│   ├── convert_model.ipynb
+│   └── model_info.json
+├── popup/
+│   ├── popup.html
+│   ├── popup.css
+│   └── popup.js
+├── background.js
+├── content.js
+├── manifest.json
+├── download_dataset.py
+├── download_kaggle.py
+└── README.md
+```
+
+## Installation
+
+1. Clone the repo
+2. Open Chrome → `chrome://extensions`
+3. Enable **Developer Mode**
+4. Click **Load unpacked** → select repo folder
+5. Visit any website — URLs are classified automatically
+
+No server setup required. The model runs entirely in your browser.
+
+---
+
+## Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| ML Model | LightGBM (multiclass) |
+| Feature Engineering | NLP, URL parsing, regex |
+| Model Export | JSON weight serialization |
+| Extension | JavaScript, Chrome Manifest V3 |
+| Training | Python, Scikit-Learn, Pandas |
+
+---
+
+## Design decisions
+
+**Client-side inference** — running the model in the browser means 
+zero latency, offline support, and no URL data sent to external servers. 
+URLs are private by design.
+
+**4-class classification** — distinguishing between phishing, malware, 
+and defacement provides more actionable alerts than binary detection.
+
+**MV3 service worker** — built on the current Chrome extension standard, 
+ensuring long-term compatibility.
